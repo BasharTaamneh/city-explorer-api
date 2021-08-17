@@ -52,16 +52,17 @@ server.get('/weather', (req, response) => {
         response.send(CityweatherArr)
     } catch {
 
-        response.send("NOT FOUND: Error We Can't find your data")
+        response.status(500).send("Error 500 We Can't find your data")
+        
     }
 
 
 })
 
 
-server.get('*', (req, response) => {
+server.get('/*', (req, response) => {
 
-    response.status(400).send("NOT FOUND")
+    response.status(404).send("NOT FOUND")
 })
 
 
