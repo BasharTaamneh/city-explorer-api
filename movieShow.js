@@ -1,7 +1,17 @@
 'use strict';
-let inMemory = {}
+let inMemory=require('./inMemory')
 
 const axios=require('axios')
+
+
+class movieShow {
+    constructor(item) {
+        this.title = item.original_title;
+        this.src = ` https://image.tmdb.org/t/p/w500/${item.poster_path}`;
+    }
+}
+
+
 
 
 function getmoviesData(req, response) {
@@ -34,12 +44,7 @@ function getmoviesData(req, response) {
     }
     
 
-class movieShow {
-    constructor(item) {
-        this.title = item.original_title;
-        this.src = ` https://image.tmdb.org/t/p/w500/${item.poster_path}`;
-    }
-}
+
 
 
 module.exports=getmoviesData;

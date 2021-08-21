@@ -1,7 +1,18 @@
 'use strict';
-let inMemory = {}
-
+let inMemory=require('./inMemory')
 const axios=require('axios')
+
+
+
+class Cityweather {
+    constructor(item) {
+        this.date = item.datetime;
+        this.description = ` it's Low of (${item.low_temp} °C) & high of (${item.max_temp} °C) with ${item.weather.description}`;
+    }
+}
+
+
+
 
 function getweatherData(req, response) {
     let wetherSearchcity = req.query.city;
@@ -34,11 +45,6 @@ function getweatherData(req, response) {
     
     
 }
-class Cityweather {
-    constructor(item) {
-        this.date = item.datetime;
-        this.description = ` it's Low of (${item.low_temp} °C) & high of (${item.max_temp} °C) with ${item.weather.description}`;
-    }
-}
+
 
 module.exports=getweatherData;
