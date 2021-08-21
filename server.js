@@ -9,6 +9,11 @@ const axios = require('axios')
 server.use(cors());
 const getweatherData = require('./getWether')
 const getmoviesData = require('./movieShow')
+
+
+
+
+
 //localhost:3001/
 server.get('/', (req, res) => {
     res.send('home route')
