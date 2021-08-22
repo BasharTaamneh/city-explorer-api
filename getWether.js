@@ -1,5 +1,6 @@
 'use strict';
-let inMemory=require('./inMemory')
+// let inMemory=require('./inMemory')
+let inMemory = {}
 const axios=require('axios')
 
 
@@ -32,6 +33,7 @@ function getweatherData(req, response) {
                 // console.log(weatherDataResults.data.data)
                 const weatherDataArray = weatherDataResults.data.data.map((item) => { return new Cityweather(item); }
                 )
+                inMemory[wetherSearchcity]=weatherDataArray;
                 weatherDataArray.splice(5, weatherDataArray.length)
                 response.send(weatherDataArray)
             })
