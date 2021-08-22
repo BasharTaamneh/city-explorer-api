@@ -1,7 +1,9 @@
 'use strict';
-let inMemory=require('./inMemory')
+// let inMemory=require('./inMemory')
 
-const axios=require('axios')
+let inMemory = {}
+
+const axios = require('axios')
 
 
 class movieShow {
@@ -18,14 +20,15 @@ function getmoviesData(req, response) {
     let movieSearchcity = req.query.query;
     //https://api.themoviedb.org/3/search/movie?api_key={.....}&query={city_nam}
     let moviesURL = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${movieSearchcity.toLowerCase()}`
-
+    // console.log(inMemory);
     if (inMemory[movieSearchcity] !== undefined) {
         console.log(' cache hit , data in cache memory');
         response.send(inMemory[movieSearchcity]);
     }
 
-    else{
+    else {
         console.log(' cache miss , send req to themoviedb API');
+
         try {
 
             axios.get(moviesURL).then((moviesDataResults) => {
@@ -33,6 +36,7 @@ function getmoviesData(req, response) {
                 // console.log(moviesDataResults.data.results)
                 const moviesDataArray = moviesDataResults.data.results.map((item) => { return new movieShow(item); }
                 )
+                inMemory[movieSearchcity]=moviesDataArray;
                 response.send(moviesDataArray)
             })
         }
@@ -41,10 +45,10 @@ function getmoviesData(req, response) {
             response.status(404).send(error)
         }
     }
-    }
-    
+}
 
 
 
 
-module.exports=getmoviesData;
+
+module.exports = getmoviesData;
